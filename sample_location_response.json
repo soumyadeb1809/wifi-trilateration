@@ -1,0 +1,36 @@
+{
+    "ap_nodes": [
+        {
+            "id": 1,
+            "ssid": "Node-A",
+            "latitude": 20.356531,
+            "longitude": 85.820000,
+            "distance": 28
+        },
+        {
+            "id": 2,
+            "ssid": "Node-B",
+            "latitude": 20.356521,
+            "longitude": 85.820346,
+            "distance": 25
+        },
+        {
+            "id": 3,
+            "ssid": "Node-C",
+            "latitude": 20.356253,
+            "longitude": 85.820336,
+            "distance": 20
+        },
+        {
+            "id": 4,
+            "ssid": "Node-D",
+            "latitude": 20.356272,
+            "longitude": 85.820021,
+            "distance": 20
+        }
+    ],
+    "position": {
+        "latitude": 20.356341027683,
+        "longitude": 85.820188574381
+    }
+}

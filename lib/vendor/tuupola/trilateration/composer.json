@@ -1,0 +1,38 @@
+{
+    "name": "tuupola/trilateration",
+    "description": "Trilateration for PHP",
+    "keywords": [
+        "wifi",
+        "geoposition",
+        "trilateration"
+    ],
+    "homepage": "https://github.com/tuupola/trilateration",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mika Tuupola",
+            "email": "tuupola@appelsiini.net",
+            "homepage": "http://www.appelsiini.net/",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "nubs/vectorix": "^1.1",
+        "symfony/process": "^3.3|^4.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7",
+        "squizlabs/php_codesniffer": "^2.5",
+        "overtrue/phplint": "^0.2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Tuupola\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tuupola\\": "tests"
+        }
+    }
+}
