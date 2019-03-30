@@ -1,7 +1,7 @@
 <?php 
 
 // Import all the required libraries
-require __DIR__ . "lib/vendor/autoload.php";
+require __DIR__ . "/lib/vendor/autoload.php";
 
 use Tuupola\Trilateration\Intersection;
 use Tuupola\Trilateration\Sphere;
