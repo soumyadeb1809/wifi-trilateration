@@ -1,6 +1,6 @@
 <?php
     
-require 'init.php';
+require 'dbh.inc.php';
 
 $response = array();
 
