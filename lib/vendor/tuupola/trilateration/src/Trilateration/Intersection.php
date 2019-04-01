@@ -28,7 +28,7 @@ class Intersection
     private $autocorrect = 1;
     private $spheres = [];
 
-    public function __construct(Sphere ...$spheres)
+    public function __construct($spheres)
     {
         $this->spheres = $spheres;
     }

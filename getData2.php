@@ -10,7 +10,8 @@ use Tuupola\Trilateration\Sphere;
 // Step 1: Get location and distance of each node/AP from DB
 $response = array();
 $node_data = array();
-$sql = "SELECT a.id,a.ssid,a.rssi,b.latitude,b.longitude FROM wifidata AS a INNER JOIN node_location AS b ON a.fk_location_id = b.pk_location_id";
+$sql = "SELECT a.id,a.ssid,a.rssi,b.latitude,b.longitude FROM wifidata AS a INNER JOIN node_location AS b ON a.fk_location_id = b.pk_location_id WHERE a.rssi != 0 AND a.id < 5";
+
 $result = mysqli_query($conn,$sql);
 if(mysqli_num_rows($result)>0)
 {
@@ -24,34 +25,38 @@ if(mysqli_num_rows($result)>0)
 
 //Calculate the distance
 function calcDistanceFromRssi($rssi)
-{
-	$y = pow(10, ( $rssi/10)) / 1000;
-	$z = sqrt(9.6*pow(10, -8)*5*pow(10, -3)/$y);
-	$distance = $z * 6;
+{	$distance = -1;
+	if($rssi != 0){
+		$y = pow(10, ( $rssi/10)) / 1000;
+		$z = sqrt(9.6*pow(10, -8)*5*pow(10, -3)/$y);
+		$distance = $z * 6;
+	}
 	return $distance;
 }
 
 // Assign the distance
-$node_data[0]['distance']=calcDistanceFromRssi($node_data[0]['rssi']);
-$node_data[1]['distance']=calcDistanceFromRssi($node_data[1]['rssi']);
-$node_data[2]['distance']=calcDistanceFromRssi($node_data[2]['rssi']);
-$node_data[3]['distance']=calcDistanceFromRssi($node_data[3]['rssi']);
+for($i = 0; $i < count($node_data); $i++){
+	$node_data[$i]['distance']=calcDistanceFromRssi($node_data[$i]['rssi']);
+}
 
 
 // Step 2: Create Sphere objects for all four nodes/APs
 // Syntax: $var = new Sphere($latitude, $longitude, $distance)
 
-$sphere1 = new Sphere($node_data[0]['latitude'],$node_data[0]['longitude'], $node_data[0]['distance']);
-$sphere2 = new Sphere($node_data[1]['latitude'],$node_data[1]['longitude'], $node_data[1]['distance']);
-$sphere3 = new Sphere($node_data[2]['latitude'], $node_data[2]['longitude'], $node_data[2]['distance']);
-$sphere4 = new Sphere($node_data[3]['latitude'],$node_data[3]['longitude'], $node_data[3]['distance']);
+$spheres = array();
+
+foreach($node_data as $node){
+
+	$sphere = new Sphere($node['latitude'], $node['longitude'], $node['distance']);
+	array_push($spheres, $sphere);
+
+}
 
 
 // Step 3: Create a new Intersection object by passing all the Sphere objects as
 // argument to the constructor
 
-$trilateration = new Intersection(array($sphere1, $sphere2, $sphere3, $sphere4));
-
+$trilateration = new Intersection($spheres);
 
 // Step 4: Call Intersection->position() method to calculate and get the coordinates of
 // the intersection of all the Spheres
