@@ -10,24 +10,22 @@
     if(!empty($_GET['data']))
     {
     	$data = $_GET['data'];
-   		
-   		echo "received data: ".$data."<br><br>";
 
-   		echo "json decoded: ".json_decode($data)."<br><br>";
+   		$jsonData = json_decode($data);
 
-   		echo "json encoded: ".json_encode($data)."<br><br>";
+   		for(int i=0; i < count($jsonData); j++){
+   			$ssid = $data[i]["ssid"];
+   			$rssi = $data[i]["rssi"];
 
- /*
-	    $sql = "UPDATE wifidata SET rssi = ".$rssi.", update_time=now() where ssid = '".$ssid."'";
- 
-		if ($conn->query($sql) === TRUE) {
-		    echo "OK";
-		} else {
-		    echo "Error: " . $sql . "<br>" . $conn->error;
+   			$rssi = ($rssi == "") ? 0 : $rssi;
+
+	    	$sql = "UPDATE wifidata SET rssi = ".$rssi.", update_time=now() where ssid = '".$ssid."'";
+			$conn->query($sql)
 		}
+		
 	}
- */
+
  
 	$conn->close();
 
-	?>
+?>
