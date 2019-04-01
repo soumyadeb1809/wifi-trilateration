@@ -81,8 +81,10 @@ $response["ap_nodes"] = $node_data;
 $pos_data["latitude"]=$point->latitude();
 $pos_data["longitude"]=$point->longitude();
 $response["position"]=$pos_data;
+
 echo json_encode($response);
 
+$conn->close();
 
 ?>
 

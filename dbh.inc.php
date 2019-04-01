@@ -1,8 +1,8 @@
 <?php
 
 
-	$servername = "localhost";
-	$username = "root";
+	$servername = "majorproj.cgogalrvwv6s.ap-south-1.rds.amazonaws.com";
+	$username = "admin";
 	$password = "password";
 	$db="majordb";
 	
