@@ -11,17 +11,21 @@
     {
     	$data = $_GET['data'];
 
-   		$jsonData = json_decode($data);
+   		$jsonData = json_decode($data, true);
 
-   		for(int i=0; i < count($jsonData); j++){
-   			$ssid = $data[i]["ssid"];
-   			$rssi = $data[i]["rssi"];
+   		for($i=0; $i < count($jsonData); $i++){
+
+   			$ssid = $jsonData[$i]["ssid"];
+   			$rssi = $jsonData[$i]["rssi"];
 
    			$rssi = ($rssi == "") ? 0 : $rssi;
 
 	    	$sql = "UPDATE wifidata SET rssi = ".$rssi.", update_time=now() where ssid = '".$ssid."'";
-			$conn->query($sql)
+			$conn->query($sql);
+
 		}
+
+		echo "OK";
 		
 	}
 
